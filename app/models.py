@@ -13,7 +13,7 @@ class FlightRead(BaseModel):
 
 class BookingRequest(BaseModel):
     passenger_name: str
-    expected_version: int | None = None
+    expected_version: int 
 
 
 class BookingRead(BaseModel):

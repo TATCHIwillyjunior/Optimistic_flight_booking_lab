@@ -141,7 +141,7 @@ Before changing the code, answer these two questions:
 1. Which value did both clients observe before sending their booking request?
 > *My answer: Each client saw the remainninng booking seat the version.*
 2. Which final state proves that the service accepted an impossible result?
-> *My answer: The fact that both client recieved a 201 created when 1 remaining seat is available.*
+> *My answer: The fact that both client recieved a 201 created when 1 remaining seat is available also the fact that there was no change over the version considering two booking has been made.*
 
 ## Your Task
 

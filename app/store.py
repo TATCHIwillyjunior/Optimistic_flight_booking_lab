@@ -78,7 +78,7 @@ class FlightStore:
         self,
         flight_id: str,
         passenger_name: str,
-        expected_version: int | None,
+        expected_version: int,
     ) -> BookingResult:
         flight = self.get_flight(flight_id)
         if flight is None:
@@ -88,6 +88,9 @@ class FlightStore:
 
         # Simulate business work or network delay.
         await asyncio.sleep(0.05)
+        
+        if expected_version is not None and flight.version != expected_version:
+            raise VersionConflict(current_version=flight.version)
 
         if observed_remaining_seats <= 0:
             raise SoldOut(current_version=flight.version)
@@ -99,6 +102,7 @@ class FlightStore:
         )
 
         flight.remaining_seats = max(0, flight.remaining_seats - 1)
+        flight.version += 1
         flight.bookings.append(booking)
 
         return BookingResult(
