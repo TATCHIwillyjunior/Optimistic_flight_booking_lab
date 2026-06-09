@@ -299,13 +299,13 @@ uvicorn app.main:app --host 0.0.0.0 --port 8000
 3. What should a real client do after receiving `VERSION_CONFLICT`?
 > *My answer: Refresh his page*
 4. Why can the two-seat scenario reject a request even though a seat remains?
-*My answer: Even though there are 2 seat remaining as long as 2 request are done at the same moment, one will be executed and the other will not due to version change or because it enter a slate state*
+> *My answer: Even though there are 2 seat remaining as long as 2 request are done at the same moment, one will be executed and the other will not due to version change or because it enter a slate state*
 5. What would go wrong if the version check happened before simulated business work or network delay?
-*My answer: you will find your self with version = 2 since both request went through without raising the VersionConflict when the client's expected_version does not match the current flight version*
+> *My answer: you will find your self with version = 2 since both request went through without raising the VersionConflict when the client's expected_version does not match the current flight version*
 6. What would happen if this app ran with two separate processes and in-memory state?
-*My answer: each process will have thier own memory since the can't see each order changes(i.e versioning) therefore dublicated will be created over a single seat and that moment*
+> *My answer: each process will have thier own memory since the can't see each order changes(i.e versioning) therefore dublicated will be created over a single seat and that moment*
 7. In a production system, where should the version check and update happen?
-*My answer: In the database as putting in constraint will affect rows to detect conflicts*
+> *My answer: In the database as putting in constraint will affect rows to detect conflicts*
 
 ## Important Caveat
 
