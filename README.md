@@ -293,12 +293,19 @@ uvicorn app.main:app --host 0.0.0.0 --port 8000
 ## Reflection Questions
 
 1. Why did the second request become stale?
+> *My answer: It's because the second request was reading old data or version since both request was made at the same moment, the first request will be executed and then there will be a version change which now update the version of the page and since the second request was made base on the old vrsioning, it request won't go throught as the old version isn't the same as the new one*
 2. Why is `409 Conflict` more appropriate than `500 Internal Server Error`?
+> *My answer: 500 Internal Server Conflict here will be telling us our backend or server has crashed or an exception was thrown that we didn't handle which for our case is not throught as 409 Conflict is a better way to say to the client or user to refresh your page since your request is valid and your server is running perfectly find*
 3. What should a real client do after receiving `VERSION_CONFLICT`?
+> *My answer: Refresh his page*
 4. Why can the two-seat scenario reject a request even though a seat remains?
+*My answer: Even though there are 2 seat remaining as long as 2 request are done at the same moment, one will be executed and the other will not due to version change or because it enter a slate state*
 5. What would go wrong if the version check happened before simulated business work or network delay?
+*My answer: you will find your self with version = 2 since both request went through without raising the VersionConflict when the client's expected_version does not match the current flight version*
 6. What would happen if this app ran with two separate processes and in-memory state?
+*My answer: each process will have thier own memory since the can't see each order changes(i.e versioning) therefore dublicated will be created over a single seat and that moment*
 7. In a production system, where should the version check and update happen?
+*My answer: In the database as putting in constraint will affect rows to detect conflicts*
 
 ## Important Caveat
 
